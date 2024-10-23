@@ -1,0 +1,106 @@
+#include<stdio.h>
+
+void convert(int x[20][20], int a[20][20], int r, int c){
+int k=1,i,j;
+a[0][0]=r;
+a[0][1]=c;
+for(i=0;i<r;i++){
+for(j=0;j<c;j++){
+  if(x[i][j]!=0){
+    a[k][0]=i;
+    a[k][1]=j;
+    a[k][2]=x[i][j];
+    k++;
+  }}}
+  a[0][2]=k-1;
+}
+
+void print(int a[20][20]){
+int m,n;
+for(m=0;m<=a[0][2];m++){
+printf("\n");
+ for(n=0;n<=2;n++){
+   printf("%d\t",a[m][n]);
+ }}}
+
+void add(int a[20][20], int b[20][20], int c[20][20]){
+int i=1,j=1,k=1,m,n;
+c[0][0]=a[0][0];
+c[0][1]=a[0][1];
+m=a[0][2];
+n=b[0][2];
+while(i<=m && j<=n){
+ if(a[i][0]==b[j][0]&&a[i][1]==b[j][1]){
+   c[k][0]=a[i][0];
+   c[k][1]=a[i][1];
+   c[k][2]=a[i][2]+b[j][2];
+   i++;k++;j++;
+ }
+ else{
+   if(a[i][0]==b[j][0]){
+     if(a[i][1]<b[j][1]){
+       c[k][0]=a[i][0];
+  c[k][1]=a[i][1];
+    c[k][2]=a[i][2];
+    k++;i++;
+     }
+     else{
+       c[k][0]=b[j][0];
+  c[k][1]=b[j][1];
+    c[k][2]=b[j][2];
+    k++;j++;
+     }
+   }
+   else{
+     if(a[i][0]<b[j][0]){
+       c[k][0]=a[i][0];
+  c[k][1]=a[i][1];
+    c[k][2]=a[i][2];
+    k++;i++;
+     }
+      else{
+       c[k][0]=b[j][0];
+  c[k][1]=b[j][1];
+    c[k][2]=b[j][2];
+    k++;j++;
+     }}}}
+while(i<=m){
+ c[k][0]=a[i][0];
+  c[k][1]=a[i][1];
+    c[k][2]=a[i][2];
+    k++;i++;
+}
+while(j<=m){
+ c[k][0]=b[j][0];
+  c[k][1]=b[j][1];
+    c[k][2]=b[j][2];
+    k++;j++;
+}
+c[0][2]=k-1;
+}
+
+int main(){
+int r,c,i,j,x[20][20],y[20][20],a[20][20],b[20][20],s[20][20];
+printf("Enter the row and column: ");
+scanf("%d%d",&r,&c);
+printf("Enter the elements of 1st Matrix: ");
+for(i=0;i<r;i++){
+for(j=0;j<c;j++){
+ scanf("%d",&x[i][j]);
+}}
+printf("Enter the elements of 2st Matrix: ");
+for(i=0;i<r;i++){
+for(j=0;j<c;j++){
+ scanf("%d",&y[i][j]);
+}}
+convert(x,a,r,c);
+convert(y,b,r,c);
+printf("\nSparse Matrix of 1st Matrix\n");
+print(a);
+printf("\nSparse Matrix of 2nd Matrix\n");
+print(b);
+add(a,b,s);
+printf("\nAdded Sparse Matrix is : \n");
+print(s);
+return 0;
+}
