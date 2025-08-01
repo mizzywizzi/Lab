@@ -75,3 +75,73 @@ jnz first
 display msg2
 
 mex cl.04h
+
+second:
+
+read Digit
+
+mov [di],al
+
+inc di
+
+dec el
+
+jnz second
+
+cle
+
+mov cl,04h
+
+addition:
+
+dec di
+
+dec si
+
+mov al,[si]
+
+mov bl,[di]
+
+adc al,bl
+
+mov ah,00h
+
+aaa
+
+mov [di],al
+
+dec cl
+
+jnz addition
+
+display msg3
+
+mov cl,04h
+
+print:
+
+mov dl, [di]
+
+printDigit
+
+inc di
+
+dec cl
+
+jnz print
+
+mov ah,4ch
+
+int 21h
+
+code ends
+
+end start
+
+OUTPUT:
+
+first no: 1121
+
+second no: 3214
+
+result: 4335
