@@ -1,0 +1,77 @@
+data segment
+
+msg1 db 0ah,Odh, "first no:$"
+
+msg2 db 0ah,0dh,"second no:$"
+
+msg3 db 0ah,0dh, "result:$"
+
+n1 db 07h dup(?)
+
+n2 db 07h dup(?)
+
+data ends
+
+display macro msg
+
+lea dx,msg
+
+mov ah,09h
+
+int 21h
+
+endm
+
+readDigit macro
+
+mov ah,01h
+
+int 21h
+
+sub al,30h
+
+endm
+
+printDigit macro
+
+add d1,30h
+
+mov ah, 02h
+
+int 21h
+
+endm
+
+code segment
+
+assume cs:code,ds:data
+
+start:
+
+mov ax,data
+
+mov ds,ax
+
+mov si offset nl
+
+mov di,offset n2
+
+display msgl
+
+mov cl,04h
+
+first:
+
+readDigit
+
+mov [si],al
+
+inc si
+
+dec cl
+
+jnz first
+
+display msg2
+
+mex cl.04h
